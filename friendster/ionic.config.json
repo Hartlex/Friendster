@@ -1,5 +1,7 @@
 {
   "name": "friendster",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
