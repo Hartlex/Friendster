@@ -1,3 +1,16 @@
+div[scrollx=true],div[scrolly=true] {
+  position: relative;
+  overflow: hidden;
+}
+
+div[scrollx=true] {
+  overflow-x: auto;
+}
+
+div[scrolly=true] {
+  overflow-y: auto;
+}
+
 ion-menu-button {
   color: var(--ion-color-primary);
 }
@@ -26,3 +39,4 @@ ion-menu-button {
 #container a {
   text-decoration: none;
 }
+
