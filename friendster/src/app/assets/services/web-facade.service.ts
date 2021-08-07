@@ -4,6 +4,7 @@ import { logging } from 'protractor';
 
 import { EventInfoContainer } from '../classes/event-info-container';
 import { User } from '../classes/user';
+import { AccountService } from './account.service';
 import { WebFacadeMockDBService } from './web-facade-mock-db.service';
 
 @Injectable({
@@ -24,7 +25,7 @@ export class WebFacadeService {
     return await this.dbService.getAllEvents();
   }
   public getUser(id:number){
-    return this.mockHttpUserRequest(id);
+      return this.mockHttpUserRequest(id);
   }
   public getInitialEvents(){
     this.dbService.clear();
@@ -104,7 +105,7 @@ export class WebFacadeService {
       return new User(4,"Maggus","Servus i bin der Maggus und hab scho 2 Maß intuss",4)
     }
   }
-  public async createEvent(title:string,subTitle:string,description:string,iconId:number){
+  public async createEvent(title:string,subTitle:string,description:string,iconId:number,userId:number){
     let id = (await this.dbService.GetFreeId());
     let event = new EventInfoContainer();
     event.id=id;
@@ -112,9 +113,15 @@ export class WebFacadeService {
     event.subTitle = subTitle;
     event.text = description;
     event.setImg(iconId);
-    event.participants = new Array(0);
+    event.participants = [userId];
     this.dbService.setEvent(id,event);
     return event;
+  }
+  public async getLocalUser(){
+    return await this.dbService.GetUser();
+  }
+  public setLocalUser(user :User){
+    this.dbService.SetLocalUser(user);
   }
 
 }

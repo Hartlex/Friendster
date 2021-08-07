@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AccountService } from 'src/app/assets/services/account.service';
 import { IconSelectorService } from 'src/app/assets/services/icon-selector.service';
 import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
+
 
 @Component({
   selector: 'app-add-event',
@@ -14,7 +16,7 @@ export class AddEventPage implements OnInit {
   public subtitle:string;
   public description:string;
   private iconValue:string;
-  constructor(private ctrl:ModalController,private iconSelector: IconSelectorService,private dbService:WebFacadeService) { 
+  constructor(private ctrl:ModalController,private iconSelector: IconSelectorService,private dbService:WebFacadeService,private accountService:AccountService) { 
     this.iconPath = "./../../../assets/icon/eventIcons/1.png";
     this.iconValue="1";
   }
@@ -33,7 +35,8 @@ export class AddEventPage implements OnInit {
       console.log(this.subtitle);
       console.log(this.description);
       console.log(this.iconValue);
-      let eventinfo = await this.dbService.createEvent(this.title,this.subtitle,this.description,Number.parseInt(this.iconValue));
+      let user =await this.accountService.getUser();
+      let eventinfo = await this.dbService.createEvent(this.title,this.subtitle,this.description,Number.parseInt(this.iconValue),user.id);
       this.closeModal();
     }
   }

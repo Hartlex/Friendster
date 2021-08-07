@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Username:</ion-label>
+      <ion-input type="text" clearInput name="username" [(ngModel)]="username" > </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Beschreibung:</ion-label>
+      <ion-input type="text" clearInput name="description" [(ngModel)]="description" > </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Icon</ion-label>
+      <ion-select [(ngModel)]="iconValue" #C value="1" (ionChange)="onIconSelect(C.value)">
+        <ion-select-option value="1">Obiwan</ion-select-option>
+        <ion-select-option value="2">Finn</ion-select-option>
+        <ion-select-option value="3">Han</ion-select-option>
+        <ion-select-option value="4">Leia</ion-select-option>
+        <ion-select-option value="5">Luke</ion-select-option>
+        <ion-select-option value="6">Poe</ion-select-option>
+        <ion-select-option value="7">Rey</ion-select-option>
+        <ion-select-option value="8">Yoda</ion-select-option>
+
+      </ion-select>
+      <img width="100px" height="100px" src="{{iconPath}}" />
+    </ion-item>
+  </ion-card>
+  <ion-button (click)="onSaveBtn()" >Speichern</ion-button>
+</ion-content>

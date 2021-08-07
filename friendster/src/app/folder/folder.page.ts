@@ -25,6 +25,9 @@ export class FolderPage implements OnInit {
       component: AddEventPage,
       cssClass: 'my-custom-class'
     });
+    modal.onDidDismiss().then(()=>{
+      this.ngOnInit();
+    })
     return await modal.present();
   }
   dismiss() {

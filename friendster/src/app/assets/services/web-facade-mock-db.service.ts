@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
 import { EventInfoContainer } from '../classes/event-info-container';
+import { User } from '../classes/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -69,6 +70,20 @@ export class WebFacadeMockDBService {
         }
       }
     }
+  }
+
+  public async GetUser(){
+    let user = (await Storage.get({key:"localUser"})).value;
+    if(user==null){
+      return new User(999,"Neuer User","Ich bin ein neuer User",1);
+    }
+    else {
+      let data = JSON.parse(user);
+      return new User(data.id,data.username,data.description,Number.parseInt(data.imgId));
+    }
+  }
+  public async SetLocalUser(user:User){
+    Storage.set({key:"localUser", value:user.serialize()});
   }
 
 }

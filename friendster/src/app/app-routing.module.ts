@@ -17,6 +17,14 @@ const routes: Routes = [
   },  {
     path: 'add-event',
     loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+  },
+  {
+    path: 'hilfe',
+    loadChildren: () => import('./pages/hilfe/hilfe.module').then( m => m.HilfePageModule)
   }
 
 
