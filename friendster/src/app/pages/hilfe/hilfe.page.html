@@ -8,7 +8,27 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
   <ion-text>
-    
+    Beim ersten Starten der App sollten einige Dummy Daten auf der Hauptseite erstellt worden sein.
+    Diese Daten werden automatisch beim zurücksetzen der App wiederhergestellt.<br><br>
+
+    Jedoch zuerst zur Account Seite:<br>
+    hier können die Daten des eigenen Accounts eingestellt werden.
+    Man kann einen Benutzernamen festlegen, eine Beschreibung hinzufügen und eine Profilbild auswählen.
+    Diese werden über die Laufzeit der App gespeichert und werden in Zukunft anderen Personen angezeigt.<br><br>
+
+    Zurück zur Hauptseite:<br>
+    Hier werden Events angezeigt. Events werden von anderen Personen erstellt und man kann den Events beitreten.
+    Hierfür muss einmal auf das Event geklickt werden. Es öffnet sich nun eine Detailansicht. In dieser Detailansicht
+    sieht man eine kleine Beschreibung des Events und dessen Teilnehmer. 
+    Mithilfe des "Mitmachen" Buttons kann man dem Event beitreten. Mit demselben Button, welche sich in einen "Verlassen" Button umwandelt
+    kann man das Event auch wieder verlassen. <br><br>
+
+    Man kann auf der Hauptseite ebenfalls sein eigenes Event erstellen. Hierfür ist der Blaue "+" Button unten rechts. Hier kann man einen Titel,
+     einen Untertitel, eine Beschreibung und ein Icon auswählen.
   </ion-text>
+
+</ion-item>
+<ion-button  (click)="onResetClick()" color="danger">App Zurücksetzen</ion-button>
 </ion-content>

@@ -50,6 +50,9 @@ export class WebFacadeService {
     event.participants.push(userId);
     this.dbService.setEvent(event.id,event);
   }
+  public resetDatabase(){
+    this.getInitialEvents();
+  }
   public getInitialEvents(){
     this.dbService.clear();
     let response = this.mockHttpRequest();
