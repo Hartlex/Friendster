@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ComponentFactoryResolver, Input, OnInit, V
 import { ModalController } from '@ionic/angular';
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
 import { User } from 'src/app/assets/classes/user';
+import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
 import { UserOverviewComponent } from 'src/app/assets/templates/user-overview/user-overview.component';
 
 @Component({
@@ -13,9 +14,9 @@ export class EventDetailPage implements OnInit,AfterContentInit {
   @ViewChild('userList',{read: ViewContainerRef,static:true}) container: ViewContainerRef;
   users: User[];
   @Input() info:EventInfoContainer;
-  constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController) { }
+  constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController,private mockDB:WebFacadeService) { }
   ngAfterContentInit(): void {
-    this.users = this.info.getParticipants();
+    this.users = this.getParticipants();
     this.users.forEach(element => {
       this.createComponent(element);
     });
@@ -31,5 +32,14 @@ export class EventDetailPage implements OnInit,AfterContentInit {
   ngOnInit() {
 
   }
+  private getParticipants(){
+    let result = new Array(this.info.participants.length);
+    for (let i = 0; i < this.info.participants.length; i++) {
+        const element = this.info.participants[i];
+        const user = this.mockDB.getUser(element);
+        result[i] = user;
+    }
+    return result;
+}
   
 }

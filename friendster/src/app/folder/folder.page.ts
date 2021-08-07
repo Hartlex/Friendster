@@ -21,13 +21,14 @@ export class FolderPage implements OnInit {
     ref.instance.info = info;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
-    let eventInfos = this.webService.getEventInfos();
-
-    eventInfos.forEach(element => {
-      this.createComponent(element);
+    let eventInfos = await this.webService.getEventInfos().then((result)=>{
+      result.forEach(element => {
+        this.createComponent(element);
+      });
     });
+
    
   }
 

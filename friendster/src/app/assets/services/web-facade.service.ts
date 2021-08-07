@@ -1,31 +1,49 @@
 import { Injectable } from '@angular/core';
+import { logging } from 'protractor';
+
 
 import { EventInfoContainer } from '../classes/event-info-container';
 import { User } from '../classes/user';
+import { WebFacadeMockDBService } from './web-facade-mock-db.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebFacadeService {
 
-  constructor() { }
+  constructor(private dbService:WebFacadeMockDBService) {
+   }
 
-  public getEventInfos(){
+  public async getEventInfos(){
+    let sync = (await this.dbService.IsSynchronized());
+
+    if(!sync){
+      this.dbService.SetSynchrnized(true);
+      this.getInitialEvents();
+    }
+    return await this.dbService.getAllEvents();
+  }
+  public getUser(id:number){
+    return this.mockHttpUserRequest(id);
+  }
+  public getInitialEvents(){
+    this.dbService.clear();
     let response = this.mockHttpRequest();
-
+    
     var result = new Array(response.eventCount);
     for(let i=0;i<response.eventCount;i++){
       let raw = response.events[i];
-      let inventInfo = new EventInfoContainer(raw.id,raw.title,raw.text);
+      let inventInfo = new EventInfoContainer();
+      inventInfo.id = raw.id;
+      inventInfo.text = raw.text;
+      inventInfo.title = raw.title;
       inventInfo.setImg(raw.imgId);
       inventInfo.setSubTitle(raw.subTitle);
       inventInfo.setParticipants(raw.participants);
       result[i] = inventInfo;
+      this.dbService.setEvent(raw.id,inventInfo);
     }
     return result;
-  }
-  public getUser(id:number){
-    return this.mockHttpUserRequest(id);
   }
   private mockHttpRequest(){
     return {
