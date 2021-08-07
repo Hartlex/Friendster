@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Titel:</ion-label>
+      <ion-input type="text" clearInput name="title" [(ngModel)]="title" > </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Subtitel:</ion-label>
+      <ion-input type="text" clearInput name="subtitle" [(ngModel)]="subtitle" > </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Beschreibung:</ion-label>
+      <ion-textarea type="text" name="description" [(ngModel)]="description"clearInput></ion-textarea>
+    </ion-item>
+    <ion-item>
+      
+      <ion-label>Icon</ion-label>
+      <ion-select #C value="1" (ionChange)="onIconSelect(C.value)">
+        <ion-select-option value="1">Drink</ion-select-option>
+        <ion-select-option value="2">Feuerwerk</ion-select-option>
+        <ion-select-option value="3">Grill</ion-select-option>
+        <ion-select-option value="4">Sekt</ion-select-option>
+        <ion-select-option value="5">Anstoßen</ion-select-option>
+        <ion-select-option value="6">Musik-Box</ion-select-option>
+        <ion-select-option value="7">VIP</ion-select-option>
+        <ion-select-option value="8">Kuchen</ion-select-option>
+        <ion-select-option value="9">Zelt</ion-select-option>
+
+      </ion-select>
+      <img width="30px" height="30px" src="{{iconPath}}" />
+    </ion-item>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon (click)="onAddEvent()" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>

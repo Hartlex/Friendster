@@ -58,6 +58,17 @@ export class WebFacadeMockDBService {
     let sync = (await Storage.get({key:"synchronized"}));
     return sync.value ==="1";
   }
-
+  public async GetFreeId(){
+    let keys: Array<string> = (await Storage.keys()).keys;
+    let id:number =0;
+    while(true){
+      for(let key of keys){
+        if(key.includes("EVENT")){
+          if("EVENT"+id !=key) return id;
+          id++;
+        }
+      }
+    }
+  }
 
 }

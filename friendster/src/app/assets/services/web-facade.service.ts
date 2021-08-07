@@ -104,5 +104,18 @@ export class WebFacadeService {
       return new User(4,"Maggus","Servus i bin der Maggus und hab scho 2 Maß intuss",4)
     }
   }
+  public async createEvent(title:string,subTitle:string,description:string,iconId:number){
+    let id = (await this.dbService.GetFreeId());
+    let event = new EventInfoContainer();
+    event.id=id;
+    event.title = title,
+    event.subTitle = subTitle;
+    event.text = description;
+    event.setImg(iconId);
+    event.participants = new Array(0);
+    this.dbService.setEvent(id,event);
+    return event;
+  }
+
 }
 
