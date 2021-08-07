@@ -46,6 +46,7 @@ export class FolderPage implements OnInit {
     this.presentModal();
   }
   async ngOnInit() {
+    this.container.clear();
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
     let eventInfos = await this.webService.getEventInfos().then((result)=>{
       result.forEach(element => {

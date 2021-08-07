@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { Console } from 'console';
 import { User } from 'src/app/assets/classes/user';
 import { AccountService } from 'src/app/assets/services/account.service';
@@ -14,12 +15,13 @@ export class AccountPage implements OnInit {
   description:string;
   iconPath:string;
   iconValue:number;
-  constructor(private accountService:AccountService,private iconSelector:IconSelectorService) { }
+  constructor(private accountService:AccountService,private iconSelector:IconSelectorService,private toaster:ToastController) { }
 
   async ngOnInit() {
     let user = await this.accountService.getUser();
     this.username = user.username;
     this.description = user.description;
+    this.iconValue = user.imgId;
     this.iconPath =this.iconSelector.getUserIconPath(user.imgId);
     
   }
@@ -27,8 +29,13 @@ export class AccountPage implements OnInit {
     this.iconValue = Number.parseInt(value);
     this.iconPath = this.iconSelector.getUserIconPath(this.iconValue);
   }
-  onSaveBtn(){
+  async onSaveBtn(){
     this.accountService.updateUser(this.username,this.description,this.iconValue);
+    const toast = await this.toaster.create({
+      message: 'Die Accountinformationen wurden gespeichert!',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

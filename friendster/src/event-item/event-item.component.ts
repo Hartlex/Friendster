@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
 import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
@@ -16,8 +16,8 @@ import { EventDetailPage } from 'src/app/pages/event-detail/event-detail.page';
 export class EventItemComponent implements OnInit {
   
   public info:EventInfoContainer;
-  
-  constructor(public modalController:ModalController,private mockDB:WebFacadeService) { }
+  private delClicked:boolean;
+  constructor(public modalController:ModalController,private mockDB:WebFacadeService,private toaster:ToastController) { }
   async presentModal() {
     const modal = await this.modalController.create({
       component: EventDetailPage,
@@ -38,12 +38,44 @@ export class EventItemComponent implements OnInit {
     });
   }
   onItemClick(){
+    if(this.delClicked)
+      return;
     this.presentModal();
   }
   async onDeleteClick(){
-    await this.mockDB.RemoveEvent(this.info.id);
-    window.location.reload();
+    this.delClicked = true;
+    await this.showDeleteToast();
+    this.delClicked = false;
   }
+
+  async showDeleteToast() {
+    const toast = await this.toaster.create({
+      header: 'Löschen des Events',
+      message: 'Möchten sie dieses Event löschen?',
+      position: 'top',
+      buttons: [
+        {
+          side: 'start',
+          text: 'Löschen',
+          handler: async () => {
+            await this.mockDB.RemoveEvent(this.info.id);
+            window.location.reload();
+          }
+        }, {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    await toast.present();
+
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   ngOnInit() {
     
   }
