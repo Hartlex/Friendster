@@ -1,4 +1,9 @@
 .eventItem{
-    max-width:4cm;
-    max-height: 4cm;
+    max-width:inherit;
+    max-height:fit-content;
   }
+img{
+  width:1cm;
+  height: 1cm;
+  margin:0.5cm;
+}

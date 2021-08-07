@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
 
 @Component({
   selector: 'app-event-item',
@@ -9,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 
 export class EventItemComponent implements OnInit {
 
-  constructor() { }
+  public info:EventInfoContainer;
+  constructor() {
+
+   }
 
   ngOnInit() {}
 

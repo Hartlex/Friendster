@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FolderPageRoutingModule } from './folder-routing.module';
-import { EventItemComponent} from './../../event-item/event-item.component';
+import { EventItemComponent} from '../../event-item/event-item.component';
 import { FolderPage } from './folder.page';
 
 @NgModule({

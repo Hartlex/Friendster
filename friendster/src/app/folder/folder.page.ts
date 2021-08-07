@@ -1,6 +1,8 @@
 import { Component, OnInit,AfterViewInit, ViewChild,ViewContainerRef,ComponentFactoryResolver} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {EventItemComponent} from './../../event-item/event-item.component'
+import { EventInfoContainer } from '../assets/classes/event-info-container';
+import {EventItemComponent} from '../../event-item/event-item.component'
+import { WebFacadeService } from '../assets/services/web-facade.service';
 
 
 @Component({
@@ -11,20 +13,21 @@ import {EventItemComponent} from './../../event-item/event-item.component'
 export class FolderPage implements OnInit {
   public folder: string;
   @ViewChild('eventItemContainer',{read: ViewContainerRef,static:true}) container: ViewContainerRef;
-  constructor(private activatedRoute: ActivatedRoute, private resolver: ComponentFactoryResolver) { }
+  constructor(private activatedRoute: ActivatedRoute, private resolver: ComponentFactoryResolver,private webService:WebFacadeService) { }
 
-  createComponent(){
-  
+  createComponent(info:EventInfoContainer){
     const factory = this.resolver.resolveComponentFactory(EventItemComponent);
-    this.container.createComponent(factory);
+    let ref = this.container.createComponent(factory);
+    ref.instance.info = info;
   }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
-    for (let i = 0; i < 20 ; i++) {
-      this.createComponent();
-      
-    }
+    let eventInfos = this.webService.getEventInfos();
+
+    eventInfos.forEach(element => {
+      this.createComponent(element);
+    });
    
   }
 
