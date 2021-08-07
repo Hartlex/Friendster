@@ -1,10 +1,13 @@
 <ion-card class="eventItem">  
-  <img src="./../assets/../assets/icon/eventIcons/1.png" />
+  <img #img  src="{{info.imgPath}}" />
   <ion-card-header>
     <ion-card-subtitle >{{info.subTitle}}</ion-card-subtitle>
     <ion-card-title >{{info.title}}</ion-card-title>
   </ion-card-header>
+  <!--
   <ion-card-content>
     {{info.text}}
   </ion-card-content>
+  -->
+
 </ion-card>

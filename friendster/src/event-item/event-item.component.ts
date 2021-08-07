@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
 
 @Component({
@@ -9,12 +9,14 @@ import { EventInfoContainer } from 'src/app/assets/classes/event-info-container'
 
 
 export class EventItemComponent implements OnInit {
-
   public info:EventInfoContainer;
+  
   constructor() {
 
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }
