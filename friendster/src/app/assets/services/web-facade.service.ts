@@ -14,7 +14,7 @@ export class WebFacadeService {
 
   constructor(private dbService:WebFacadeMockDBService) {
    }
-
+  
   public async getEventInfos(){
     let sync = (await this.dbService.IsSynchronized());
 
@@ -24,8 +24,28 @@ export class WebFacadeService {
     }
     return await this.dbService.getAllEvents();
   }
+  public async getEventInfo(id:number){
+    return await this.dbService.getEvent(id);
+  }
   public getUser(id:number){
       return this.mockHttpUserRequest(id);
+  }
+  public async UserLeaveEvent(userId:number,eventId:number){
+    let event = await this.dbService.getEvent(eventId);
+    const index = event.participants.indexOf(userId);
+    if(index>-1){
+      event.participants.splice(index,1);
+    }
+    this.dbService.setEvent(event.id,event);
+  }
+  public async UserJoinEvent(userId:number,eventId:number){
+    let event = await this.dbService.getEvent(eventId);
+    const index = event.participants.indexOf(userId);
+    if(index>-1){
+      return;
+    }
+    event.participants.push(userId);
+    this.dbService.setEvent(event.id,event);
   }
   public getInitialEvents(){
     this.dbService.clear();

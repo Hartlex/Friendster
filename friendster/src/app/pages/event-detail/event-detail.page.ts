@@ -15,8 +15,12 @@ export class EventDetailPage implements OnInit,AfterContentInit {
   @ViewChild('userList',{read: ViewContainerRef,static:true}) container: ViewContainerRef;
   users: User[];
   @Input() info:EventInfoContainer;
+
+  private joinLeaveBtnTxt:string = "Mitmachen";
+  private isJoined:boolean=false;
   constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController,private mockDB:WebFacadeService,private accService:AccountService) { }
   async ngAfterContentInit() {
+    this.container.clear();
     this.users = await this.getParticipants();
     this.users.forEach(element => {
       console.log(element);
@@ -34,12 +38,44 @@ export class EventDetailPage implements OnInit,AfterContentInit {
   ngOnInit() {
 
   }
+  async onJoinLeave(){
+    
+    if(this.isJoined)
+    {   
+      this.setJoined(false);
+      await this.leave();
+    }
+    else
+    {
+      this.setJoined(true);
+      await this.join();
+    }
+    
+    this.info = await this.mockDB.getEventInfo(this.info.id);
+    this.ngAfterContentInit();
+  }
+  private async join(){
+    console.log("join");
+    let user = await this.accService.getUser();
+    await this.mockDB.UserJoinEvent(user.id,this.info.id);
+    
+  }
+  private async leave(){
+    console.log("leave");
+    let user = await this.accService.getUser();
+    await this.mockDB.UserLeaveEvent(user.id,this.info.id);
+  }
+  private setJoined(value:boolean){
+    this.isJoined = value;
+    this.joinLeaveBtnTxt = this.isJoined? "Verlassen": "Mitmachen";
+  }
   private async getParticipants(){
     let result = new Array(this.info.participants.length);
     for (let i = 0; i < this.info.participants.length; i++) {
         const element = this.info.participants[i];
         if(element ===999){
           result[i] = await this.accService.getUser();
+          this.setJoined(true);
         }
         else{
         const user = this.mockDB.getUser(element);

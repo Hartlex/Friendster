@@ -15,15 +15,18 @@ export class WebFacadeMockDBService {
     Storage.set({key:"EVENT"+id,value:info.serialize()});
   }
   public async getEvent(id:number){
-    return Storage.get({key:"EVENT"+id}).then(data=>{
-      console.log("DATA:" +data.value);
+    let data = await (await Storage.get({key:"EVENT"+id})).value;
+    let info = new EventInfoContainer();
+    info.deserialize(data);
+    return info;
+    /**return Storage.get({key:"EVENT"+id}).then(data=>{
       var info = new EventInfoContainer();
       info.deserialize(data.value);
       return info;
     },error=>{
       console.log(error);
       return null;
-    });
+    });**/
   }
   public async getEventFromStr(str:string){
     return await Storage.get({key:str}).then(data=>{

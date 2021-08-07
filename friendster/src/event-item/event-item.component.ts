@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
+import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
 import { EventDetailPage } from 'src/app/pages/event-detail/event-detail.page';
 
 
@@ -16,7 +17,7 @@ export class EventItemComponent implements OnInit {
   
   public info:EventInfoContainer;
   
-  constructor(public modalController:ModalController) { }
+  constructor(public modalController:ModalController,private mockDB:WebFacadeService) { }
   async presentModal() {
     const modal = await this.modalController.create({
       component: EventDetailPage,
@@ -24,7 +25,11 @@ export class EventItemComponent implements OnInit {
       componentProps:{
         'info': this.info
       }
+      
     });
+    modal.onDidDismiss().then(async ()=>{
+      this.info= await this.mockDB.getEventInfo(this.info.id);
+    })
     return await modal.present();
   }
   dismiss() {
