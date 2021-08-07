@@ -3,13 +3,13 @@ import { User } from "./user";
 
 
 export class EventInfoContainer {
-    private id:number;
-    private title:string;
-    private img: number;
-    private subTitle:string;
-    private text:string;
-    private participants:User[];
-    private imgPath:string;
+    public id:number;
+    public title:string;
+    public img: number;
+    public subTitle:string;
+    public text:string;
+    public participants:User[];
+    public imgPath:string;
 
     public constructor(id:number,title:string,text:string){
         this.id = id;

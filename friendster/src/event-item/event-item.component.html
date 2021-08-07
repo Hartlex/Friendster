@@ -1,4 +1,4 @@
-<ion-card class="eventItem">  
+<ion-card class="eventItem" (click)="onItemClick()">  
   <img #img  src="{{info.imgPath}}" />
   <ion-card-header>
     <ion-card-subtitle >{{info.subTitle}}</ion-card-subtitle>
