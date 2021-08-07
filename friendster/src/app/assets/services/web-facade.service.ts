@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { EventInfoContainer } from '../classes/event-info-container';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,13 @@ export class WebFacadeService {
       let inventInfo = new EventInfoContainer(raw.id,raw.title,raw.text);
       inventInfo.setImg(raw.imgId);
       inventInfo.setSubTitle(raw.subTitle);
+      inventInfo.setParticipants(raw.participants);
       result[i] = inventInfo;
     }
     return result;
+  }
+  public getUser(id:number){
+    return this.mockHttpUserRequest(id);
   }
   private mockHttpRequest(){
     return {
@@ -32,7 +37,7 @@ export class WebFacadeService {
             "subTitle":"am besten beim Italiener",
             "imgId":5,
             "text":"Hallo ich würde gerne mit ein paar Leuten zum Italiener, wer hat Lust?",
-            "participants":[1,5,7]
+            "participants":[1]
           },
           {
             "id":1,
@@ -40,7 +45,7 @@ export class WebFacadeService {
             "subTitle":"bei mir zuhause (Adresse gibts über Whatsapp)",
             "imgId":3,
             "text":"Hallo ich würde gerne mit ein paar Leuten zum grillen. Grillgut selbst mitbringen. Für Bier ist gesorgt",
-            "participants":[1,5,7]
+            "participants":[2]
           },
           {
             "id":2,
@@ -48,7 +53,7 @@ export class WebFacadeService {
             "subTitle":"hallo wer hat bock am Freitag mit in den Club zu gehen?",
             "imgId":6,
             "text":"Hoch die Hände Wochenende",
-            "participants":[1,5,7]
+            "participants":[1,2,3]
           },
           {
             "id":3,
@@ -56,7 +61,7 @@ export class WebFacadeService {
             "subTitle":"Hallo Leute, hat jemand Lust auf ein gemütliches Stück Kuchen um einfach ein paar neue Menschen kennen zu lernen?",
             "imgId":8,
             "text":"Ich liebe Kuchen",
-            "participants":[1,5,7]
+            "participants":[3]
           },
           {
             "id":4,
@@ -64,9 +69,21 @@ export class WebFacadeService {
             "subTitle":"Hallo and Alle, ich suche noch nach ein paar coolen Leuten für meine Silvesterparty!",
             "imgId":2,
             "text":"bin zu faul eine Beschreibung zu machen.",
-            "participants":[1,5,7]
+            "participants":[4]
           }
       ]
+    }
+  }
+  private mockHttpUserRequest(id:number){
+    switch (id) {
+      case 1:
+        return new User(1,"Horst","Hallo ich bin der Horst und ich mag Züge",1)
+      case 2:
+        return new User(2,"Angela","Angela for Bundeskanzler",2)
+      case 3:
+        return new User(3,"Armin","Ich lache gerne bei unangemessenen Veranstalltungen",3)
+      case 4: 
+      return new User(4,"Maggus","Servus i bin der Maggus und hab scho 2 Maß intuss",4)
     }
   }
 }

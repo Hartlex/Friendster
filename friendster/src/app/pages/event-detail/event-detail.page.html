@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{info.title}}</ion-title>
+    <ion-title><img width="30px" height="30px" src="{{info.imgPath}}" /> {{info.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card class="description">
+    <ion-text >
+      {{info.text}}
+    </ion-text>
+  </ion-card>
+  <ion-card>
+    <ion-header>
+      Teilnehmer
+    </ion-header>
+    <ion-list #userList>
 
+    </ion-list>
+  </ion-card>
 </ion-content>
