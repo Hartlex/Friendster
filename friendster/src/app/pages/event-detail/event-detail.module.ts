@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { EventDetailPageRoutingModule } from './event-detail-routing.module';
 
 import { EventDetailPage } from './event-detail.page';
+import { UserOverviewComponent } from 'src/app/assets/templates/user-overview/user-overview.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EventDetailPageRoutingModule
+    EventDetailPageRoutingModule,
+
+    
   ],
-  declarations: [EventDetailPage]
+  declarations: [EventDetailPage,UserOverviewComponent]
 })
 export class EventDetailPageModule {}

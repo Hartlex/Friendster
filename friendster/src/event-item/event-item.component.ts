@@ -28,8 +28,6 @@ export class EventItemComponent implements OnInit {
     return await modal.present();
   }
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
       'dismissed': true
     });

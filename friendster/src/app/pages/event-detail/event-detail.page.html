@@ -14,8 +14,14 @@
     <ion-header>
       Teilnehmer
     </ion-header>
-    <ion-list #userList>
+    <div scrollx="true" >
+      <ion-list #userList>
 
-    </ion-list>
+      </ion-list>
+    </div>
+
   </ion-card>
+  <ion-button (click)="closeModal()">
+    Back
+  </ion-button>
 </ion-content>
