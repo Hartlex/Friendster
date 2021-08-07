@@ -5,7 +5,12 @@
     <ion-card-title >{{info.title}}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-button slot="end" (click)="onDeleteClick()" color="danger">Löschen</ion-button>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="danger">
+        <ion-icon color="light" (click)="onDeleteClick()" name="close-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </ion-card-content>
+
 
 </ion-card>

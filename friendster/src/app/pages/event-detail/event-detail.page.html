@@ -22,7 +22,9 @@
     </div>
     <ion-button (click)="onJoinLeave()">{{joinLeaveBtnTxt}}</ion-button>
   </ion-card>
-  <ion-button (click)="closeModal()">
-    Back
-  </ion-button>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon (click)="closeModal()" name="arrow-back-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
