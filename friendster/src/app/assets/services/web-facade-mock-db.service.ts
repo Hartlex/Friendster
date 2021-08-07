@@ -14,6 +14,9 @@ export class WebFacadeMockDBService {
   public setEvent(id:number,info:EventInfoContainer){
     Storage.set({key:"EVENT"+id,value:info.serialize()});
   }
+  public async removeEvent(id:number){
+    Storage.remove({key:"EVENT"+id});
+  }
   public async getEvent(id:number){
     let data = await (await Storage.get({key:"EVENT"+id})).value;
     let info = new EventInfoContainer();

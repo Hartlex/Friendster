@@ -40,6 +40,10 @@ export class EventItemComponent implements OnInit {
   onItemClick(){
     this.presentModal();
   }
+  async onDeleteClick(){
+    await this.mockDB.RemoveEvent(this.info.id);
+    window.location.reload();
+  }
   ngOnInit() {
     
   }

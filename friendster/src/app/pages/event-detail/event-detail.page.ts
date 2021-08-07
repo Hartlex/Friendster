@@ -16,7 +16,7 @@ export class EventDetailPage implements OnInit,AfterContentInit {
   users: User[];
   @Input() info:EventInfoContainer;
 
-  private joinLeaveBtnTxt:string = "Mitmachen";
+  public joinLeaveBtnTxt:string = "Mitmachen";
   private isJoined:boolean=false;
   constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController,private mockDB:WebFacadeService,private accService:AccountService) { }
   async ngAfterContentInit() {

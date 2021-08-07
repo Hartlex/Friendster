@@ -38,6 +38,9 @@ export class WebFacadeService {
     }
     this.dbService.setEvent(event.id,event);
   }
+  public async RemoveEvent(id:number){
+    await this.dbService.removeEvent(id);
+  }
   public async UserJoinEvent(userId:number,eventId:number){
     let event = await this.dbService.getEvent(eventId);
     const index = event.participants.indexOf(userId);
@@ -113,6 +116,7 @@ export class WebFacadeService {
       ]
     }
   }
+  
   private mockHttpUserRequest(id:number){
     switch (id) {
       case 1:
