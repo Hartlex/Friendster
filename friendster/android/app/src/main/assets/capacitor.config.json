@@ -1,5 +1,5 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "hartlex.friendster",
 	"appName": "friendster",
 	"webDir": "www",
 	"bundledWebRuntime": false
