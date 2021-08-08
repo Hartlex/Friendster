@@ -1,4 +1,4 @@
-import { IconSelectorService } from "../services/icon-selector.service";
+//import { IconSelectorService } from "../services/icon-selector.service";
 
 export class User {
     public id:number;
@@ -12,8 +12,8 @@ export class User {
         this.username = username;
         this.description = description;
         this.imgId = imgId;
-        let selector = new IconSelectorService();
-        this.imgPath = selector.getUserIconPath(imgId);
+        //let selector = new IconSelectorService();
+        //this.imgPath = selector.getUserIconPath(imgId);
     }
     public serialize (){
         return JSON.stringify({
@@ -29,8 +29,8 @@ export class User {
         this.id = data.id;
         this.username = data.username;
         this.imgId = Number.parseInt(data.imgId);
-        let iconSelector = new IconSelectorService();
-        this.imgPath = iconSelector.getUserIconPath(this.imgId);
+        //let iconSelector = new IconSelectorService();
+        //this.imgPath = iconSelector.getUserIconPath(this.imgId);
         this.description = data.description;
     }
 

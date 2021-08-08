@@ -22,12 +22,13 @@ export class AccountPage implements OnInit {
     this.username = user.username;
     this.description = user.description;
     this.iconValue = user.imgId;
-    this.iconPath =this.iconSelector.getUserIconPath(user.imgId);
+    this.iconPath = await this.iconSelector.getUserIconPath(user.imgId);
     
   }
-  onIconSelect(value){
+  async onIconSelect(value){
     this.iconValue = Number.parseInt(value);
-    this.iconPath = this.iconSelector.getUserIconPath(this.iconValue);
+    this.iconPath = await this.iconSelector.getUserIconPath(this.iconValue);
+    console.log(this.iconPath);
   }
   async onSaveBtn(){
     this.accountService.updateUser(this.username,this.description,this.iconValue);

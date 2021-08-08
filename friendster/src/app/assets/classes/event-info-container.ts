@@ -24,8 +24,8 @@ export class EventInfoContainer {
     //}
     public setImg(id:number){
         this.img =id;
-        let selector = new IconSelectorService();
-        this.imgPath = selector.getEventIconPath(id);
+        //let selector = new IconSelectorService();
+        //this.imgPath = selector.getEventIconPath(id);
     }
     public setSubTitle(subTitle:string){
         this.subTitle = subTitle;

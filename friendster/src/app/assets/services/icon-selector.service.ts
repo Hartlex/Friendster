@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import {HttpClient,HttpErrorResponse} from '@angular/common/http';
+import { resourceLimits } from 'worker_threads';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IconSelectorService {
   
-  constructor() { }
+  constructor(private http:HttpClient) { }
   public getEventIconPath(id:number){
     switch (id) {
       case 1:
@@ -30,8 +32,8 @@ export class IconSelectorService {
         break;
     }
   }
-  public getUserIconPath(id:number){
-
+  public async getUserIconPath(id:number){
+    return String(await this.getPathFromWeb(id));
     switch (id) {
       case 1:
         return "./../../../assets/icon/userIcons/1.png";
@@ -54,7 +56,13 @@ export class IconSelectorService {
         break;
     }
   }
-  private getPathFromWeb(id:number){
+  private async getPathFromWeb(id:number){
+
+    let response = await this.http.get<JSON>('https://rawcdn.githack.com/akabab/starwars-api/0.2.1/api/id/'+id+'.json', {observe:"response"}).toPromise();
+    let obj = JSON.stringify(response.body);
+    var js = JSON.parse(obj);
+    return String(js.image);
     
+
   }
 }

@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
 import { User } from 'src/app/assets/classes/user';
 import { AccountService } from 'src/app/assets/services/account.service';
+import { IconSelectorService } from 'src/app/assets/services/icon-selector.service';
 import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
 import { UserOverviewComponent } from 'src/app/assets/templates/user-overview/user-overview.component';
 
@@ -18,12 +19,12 @@ export class EventDetailPage implements OnInit,AfterContentInit {
 
   public joinLeaveBtnTxt:string = "Mitmachen";
   private isJoined:boolean=false;
-  constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController,private mockDB:WebFacadeService,private accService:AccountService) { }
+  constructor(private resolver: ComponentFactoryResolver,private ctrl:ModalController,private mockDB:WebFacadeService,private accService:AccountService,private selector:IconSelectorService) { }
   async ngAfterContentInit() {
     this.container.clear();
     this.users = await this.getParticipants();
-    this.users.forEach(element => {
-      console.log(element);
+    this.users.forEach(async element => {
+      element.imgPath = await this.selector.getUserIconPath(element.imgId);
       this.createComponent(element);
     });
   }

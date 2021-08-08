@@ -17,18 +17,9 @@
       <ion-input type="text" clearInput name="description" [(ngModel)]="description" > </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Icon</ion-label>
-      <ion-select [(ngModel)]="iconValue" #C value="1" (ionChange)="onIconSelect(C.value)">
-        <ion-select-option value="1">Obiwan</ion-select-option>
-        <ion-select-option value="2">Finn</ion-select-option>
-        <ion-select-option value="3">Han</ion-select-option>
-        <ion-select-option value="4">Leia</ion-select-option>
-        <ion-select-option value="5">Luke</ion-select-option>
-        <ion-select-option value="6">Poe</ion-select-option>
-        <ion-select-option value="7">Rey</ion-select-option>
-        <ion-select-option value="8">Yoda</ion-select-option>
-
-      </ion-select>
+      <ion-label>Icon (Zahl von 1-88):</ion-label>
+      <ion-input type="numeric"[(ngModel)]="iconValue" #C value="1" ></ion-input>
+      <ion-button (click)="onIconSelect(C.value)" >Ok</ion-button>
       <img width="100px" height="100px" src="{{iconPath}}" />
     </ion-item>
   </ion-card>
