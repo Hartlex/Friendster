@@ -31,6 +31,7 @@ export class IconSelectorService {
     }
   }
   public getUserIconPath(id:number){
+
     switch (id) {
       case 1:
         return "./../../../assets/icon/userIcons/1.png";
@@ -52,5 +53,8 @@ export class IconSelectorService {
       default:
         break;
     }
+  }
+  private getPathFromWeb(id:number){
+    
   }
 }
