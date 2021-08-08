@@ -5,6 +5,7 @@ import {EventItemComponent} from '../../event-item/event-item.component'
 import { WebFacadeService } from '../assets/services/web-facade.service';
 import { ModalController } from '@ionic/angular';
 import { AddEventPage } from '../pages/add-event/add-event.page';
+import { IconSelectorService } from '../assets/services/icon-selector.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { AddEventPage } from '../pages/add-event/add-event.page';
 export class FolderPage implements OnInit {
   public folder: string;
   @ViewChild('eventItemContainer',{read: ViewContainerRef,static:true}) container: ViewContainerRef;
-  constructor(private modalController:ModalController,private activatedRoute: ActivatedRoute, private resolver: ComponentFactoryResolver,private webService:WebFacadeService) { }
+  constructor(private selector:IconSelectorService,private modalController:ModalController,private activatedRoute: ActivatedRoute, private resolver: ComponentFactoryResolver,private webService:WebFacadeService) { }
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -38,6 +39,7 @@ export class FolderPage implements OnInit {
 
   createComponent(info:EventInfoContainer){
     const factory = this.resolver.resolveComponentFactory(EventItemComponent);
+    info.imgPath = this.selector.getEventIconPath(info.img);
     let ref = this.container.createComponent(factory);
     ref.instance.info = info;
   }
@@ -50,6 +52,7 @@ export class FolderPage implements OnInit {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
     let eventInfos = await this.webService.getEventInfos().then((result)=>{
       result.forEach(element => {
+        
         this.createComponent(element);
       });
     });
