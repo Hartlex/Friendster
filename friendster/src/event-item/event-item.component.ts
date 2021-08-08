@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 
 import { EventInfoContainer } from 'src/app/assets/classes/event-info-container';
+import { IconSelectorService } from 'src/app/assets/services/icon-selector.service';
 import { WebFacadeService } from 'src/app/assets/services/web-facade.service';
 import { EventDetailPage } from 'src/app/pages/event-detail/event-detail.page';
 
@@ -17,7 +18,7 @@ export class EventItemComponent implements OnInit {
   
   public info:EventInfoContainer;
   private delClicked:boolean;
-  constructor(public modalController:ModalController,private mockDB:WebFacadeService,private toaster:ToastController) { }
+  constructor(private selector:IconSelectorService, public modalController:ModalController,private mockDB:WebFacadeService,private toaster:ToastController) { }
   async presentModal() {
     const modal = await this.modalController.create({
       component: EventDetailPage,
@@ -29,6 +30,7 @@ export class EventItemComponent implements OnInit {
     });
     modal.onDidDismiss().then(async ()=>{
       this.info= await this.mockDB.getEventInfo(this.info.id);
+      this.info.imgPath = this.selector.getEventIconPath(this.info.img);
     })
     return await modal.present();
   }

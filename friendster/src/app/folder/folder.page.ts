@@ -40,6 +40,7 @@ export class FolderPage implements OnInit {
   createComponent(info:EventInfoContainer){
     const factory = this.resolver.resolveComponentFactory(EventItemComponent);
     info.imgPath = this.selector.getEventIconPath(info.img);
+    console.log(info.imgPath);
     let ref = this.container.createComponent(factory);
     ref.instance.info = info;
   }
